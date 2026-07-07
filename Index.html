@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private World Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>🌍 Private World Chat</h1>
+        <p>Only people with an invite link can join.</p>
+    </header>
+
+    <main>
+
+        <div class="card">
+            <h2>Welcome</h2>
+            <p>Create a private group or join one with an invite link.</p>
+
+            <button id="createGroup">Create Group</button>
+            <button id="joinGroup">Join Group</button>
+        </div>
+
+        <div class="card">
+            <h2>Your Groups</h2>
+            <div id="groupList">
+                <p>No groups yet.</p>
+            </div>
+        </div>
+
+        <div class="card chat">
+            <div id="messages"></div>
+
+            <div class="messageBox">
+                <input
+                    id="messageInput"
+                    type="text"
+                    placeholder="Type a message..."
+                >
+                <button id="sendMessage">Send</button>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
