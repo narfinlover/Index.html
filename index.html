@@ -1,55 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Private World Chat</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Private World Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      padding: 20px;
+    }
+
+    #chat {
+      height: 400px;
+      overflow-y: auto;
+      background: #222;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    input {
+      padding: 10px;
+      width: 75%;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px;
+      width: 20%;
+    }
+
+    .msg {
+      background: #333;
+      margin: 5px;
+      padding: 8px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="container">
+<h2>Private World 🌎</h2>
 
-    <header>
-        <h1>🌍 Private World Chat</h1>
-        <p>Only people with an invite link can join.</p>
-    </header>
+<div id="chat"></div>
 
-    <main>
+<input id="message" placeholder="Type message...">
+<button onclick="sendMessage()">Send</button>
 
-        <div class="card">
-            <h2>Welcome</h2>
-            <p>Create a private group or join one with an invite link.</p>
 
-            <button id="createGroup">Create Group</button>
-            <button id="joinGroup">Join Group</button>
-        </div>
+<script type="module">
 
-        <div class="card">
-            <h2>Your Groups</h2>
-            <div id="groupList">
-                <p>No groups yet.</p>
-            </div>
-        </div>
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-        <div class="card chat">
-            <div id="messages"></div>
 
-            <div class="messageBox">
-                <input
-                    id="messageInput"
-                    type="text"
-                    placeholder="Type a message..."
-                >
-                <button id="sendMessage">Send</button>
-            </div>
-        </div>
+const supabaseUrl = "PUT_YOUR_SUPABASE_URL_HERE";
+const supabaseKey = "PUT_YOUR_SUPABASE_ANON_KEY_HERE";
 
-    </main>
+const supabase = createClient(
+  supabaseUrl,
+  supabaseKey
+);
 
-</div>
 
-<script type="module" src="script.js"></script>
+async function loadMessages(){
+
+  const { data, error } = await supabase
+    .from("messages")
+    .select("*")
+    .order("id");
+
+  if(error){
+    console.log(error);
+    return;
+  }
+
+  document.getElementById("chat").innerHTML = "";
+
+  data.forEach(msg => {
+    document.getElementById("chat").innerHTML +=
+    `<div class="msg">${msg.text}</div>`;
+  });
+
+}
+
+
+window.sendMessage = async function(){
+
+  const input = document.getElementById("message");
+
+  if(input.value.trim() === "") return;
+
+
+  const { error } = await supabase
+    .from("messages")
+    .insert([
+      {
+        text: input.value
+      }
+    ]);
+
+
+  if(error){
+    alert(error.message);
+  }
+
+
+  input.value = "";
+
+  loadMessages();
+
+}
+
+
+loadMessages();
+
+
+</script>
 
 </body>
 </html>
