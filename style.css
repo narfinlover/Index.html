@@ -1,0 +1,50 @@
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#121212;
+    color:white;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+header{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#1f1f1f;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+button{
+    background:#5865F2;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin:5px;
+}
+
+input{
+    width:80%;
+    padding:10px;
+    border-radius:8px;
+    border:none;
+}
+
+#messages{
+    height:300px;
+    overflow-y:auto;
+    background:#2b2b2b;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:10px;
+}
